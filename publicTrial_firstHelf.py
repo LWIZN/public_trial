@@ -2,13 +2,14 @@ import speech_recognition as sr
 import time
 import threading
 import re
-import re
 import requests
 import cv2
 import argparse
 import os
 
 is_taken = 0
+
+mistake_counter = 0
 
 CAMERA_WIDTH = 640
 CAMERA_HEIGHT = 480
@@ -161,6 +162,11 @@ try:
                                           "value1": '學號: '+'1號', "value2": '時間到!!!!', "value3": '不想被公審的話你還有三秒鐘'})
                     time.sleep(3)
                     if is_taken == 0:
+
+                        mistake_counter += 1
+                        if mistake_counter > 3:
+                            os.system("node ./main.js")
+
                         r_line = session.post(URL_line2, params={
                                               "value1": '學號: '+'1號', "value2": '時間到!!!!', "value3": '準備被公審吧!'})
                         r_sheets = session.post(
@@ -197,6 +203,11 @@ try:
                                           "value1": '學號: '+'2號', "value2": '時間到!!!!', "value3": '不想被公審的話你還有三秒鐘'})
                     time.sleep(3)
                     if is_taken == 0:
+
+                        mistake_counter += 1
+                        if mistake_counter > 3:
+                            os.system("node ./main.js")
+
                         r_line = session.post(URL_line2, params={
                                               "value1": '學號: '+'2號', "value2": '時間到!!!!', "value3": '準備被公審吧!'})
                         r_sheets = session.post(

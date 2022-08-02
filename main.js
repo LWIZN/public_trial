@@ -21,7 +21,7 @@ const {
       return value === String(studentID);
     });
 
-    console.log("ID " + studentID + ": " + tmp.length);
+    console.log("ID " + studentID + ": has " + tmp.length + " mistake");
     if (tmp.length > 3) {
       // LINE notify
       axios.post(studentURLs[studentID - 1].studentURL, {
