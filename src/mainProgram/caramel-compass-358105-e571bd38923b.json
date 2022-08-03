@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "caramel-compass-358105",
+  "private_key_id": "e571bd38923b433be89bbf58f34868cf5b086695",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDdn7H6m/LOK9Gj\n0BMlCnWkcAesW8p7HedGClFXGE0/5wahWb9nkwp5YA/DCmROI5kGdZNAZXKjE9rf\nhQyDoegHnItMF6BMpWjg6Bad8UMZA0X9/SqF8lPz9W9evMs6OQx889cjLEXUpZvi\nZK7kWLbXfSTZ68SgUk+eqiLrmSVVS7AauS43YcayluQ0tnhBptzNmpo4FGvFV67j\nnp2vUNn1/4Dln8nOUppEVlWudVOEDZt3NziHUL2Y/jLCahYuIDmSRHhC2eZsrNOl\nuCr2sBZKh1ge07xD9eUUua61aGxND/2RMX8LethgxoVmvAT/pVQXOkR8ROPtpWy+\nmCHZF5/PAgMBAAECggEASA0jpUivEyU+1kWO+9NfNNMxQ3FiLk2mA2jWUfz2HGjl\nCG7voeI1nQlEhpHp01eSZ/2wnlZ9AxSw60tLqr3n/BWCWf4yYMjEBJ6fv8CQomCk\nkDMO8JY8ggtQplm1rpueej8iOe6qUzx2Jg+6pkVLSFqIsQqMFd08wmYozTSwZP6I\nBQJDHQl2wvEJ4s6zLpiUJeedyDsPc1h5DbEybHMrbT/kmjvYwmc7XtZ4R/k7Tod8\nBi6sVbmErVyS1EeUcvb3BpjI2HXRf/nLhnaGtoqTVJ8cSMahIaGdWGp2kO2U8Qs/\ntM2cBAI+la3H9JK4XQNdB2rh/4yIRoGD6369wlTlbQKBgQDuiGaOR0ss8HTjGSRr\ngXsyzeUu0JwIEo1u8Pc9FbDYfkPPOxucI7bYRIU/srhOoqMln0Gh04VIr0xvqB3i\nNNzzVy+69wWT2nSnORkk1srQEdYuQvrEfOgpS2U15sRWAA9mdyEeJHCJzIkx4SuC\nCcfPU6+dKDSGFvrrIWUa8BGxywKBgQDt2lBdTGZDY4pNt8ix1bLRsm4n2d44qtrf\nuQzkQotb920Le8i+IhY5fR5GiX+eVBKUxkVNgGC6RYRRlGb//uq8LrIaIMb68QDL\nvdlG7uyu44SCro6+4gM6AsbKN4Zt62OlVUVKDF/E8mXJGO2A18t1mngRN+f5TsDr\n4CbPgfe5jQKBgCAo+8rLCfOxJ9FGnoZwGrAq2m+JaMAd4DvI+UyfFAzcWUAjdAGF\nPy3Bb0W7TuYrP1vfMPYkkp/OIrwbKoxJHFEivCi1DWd12KyDIkS5QPb0sK/kD/NV\n8+c9ZxPxXR9LOshR34E04IdzsDutZDRQJURqwA6sUQiTKJlzEzKik4ApAoGBAOSL\nLUU4r9p4vt/GhDU8XUJY7LemBHz2zrDBor2Bo16O9FxgaJcpMamzq2+jltiPd/s0\nOEsr28WgHnA05HN+ghan18J7VDazdExQ84HQ+eNiAmV/TPHlQaxwFosfpy/fSjQH\nJzjrguo+78a3CR8QOxOZhV0mFuPa5EzBaQlinKHRAoGAXQ8C5GAbIDljQHrluSGv\ntRZxUcgqWpH98xmbB8KMjC6PMt/cwEYD4EwO3Z/AmS8BAJuwxWtfSjYqC9RC3lGk\nG5oAWZy2YW73OpYL/0uHhWDmtNHGFchrsPOY4y8o8tZFKHw1VmYWElzgwT/0VSW+\nWRnNWugiA2yDeGw2Sme4CI8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "digi-repo@caramel-compass-358105.iam.gserviceaccount.com",
+  "client_id": "106490655117085534500",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/digi-repo%40caramel-compass-358105.iam.gserviceaccount.com"
+}
