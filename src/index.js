@@ -23,3 +23,9 @@ startButton.onclick = function () {
     console.log(data);
   });
 };
+
+takeButton.onclick = function () {
+  $.get("http://localhost:5000/take_cloths", function (data) {
+    console.log(data);
+  });
+};

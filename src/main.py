@@ -6,6 +6,8 @@ import json
 
 app = Flask(__name__)
 
+Manager.default_black_list_path = "./src/black_list_tmp.json"
+
 
 @app.route('/home')
 def get_index():
@@ -31,6 +33,7 @@ def start_pacakge():
         message = Manager.get_user_voice_message()
         if not Manager.in_black_list(message):
             return 'You was blocking'
+            os.system("node ./src/mainProgram/overMistake.js")
         account = ''
         import re
         account = '1號' if re.search('1號\s*') else '2號'

@@ -96,7 +96,7 @@ class WashMacnineManager:
                 'message': message,
                 'imageFile': open(media_path)
             }
-            # line group_url = LINE_GROUP_TOKEN
+            # group_url = LINE_GROUP_TOKEN
             tmp = requests.post(None, headers=headers, params=params)
             tmp.close()
 
@@ -143,7 +143,7 @@ class WashMacnineManager:
                     self.student1_mistake_counter += 1
                     ifttt_post(account, f'學號:{account}<br>時間到!!!!<br>準備被公審吧!')
                     requests.post(SHEETS_URL, params={"value1": '1'})
-                    group_post(mesage=f'學號: {account}', media=None)
+                    group_post(message=f'學號: {account}', media_path=None)
                 else:
                     ifttt_post(account, '你好棒', '你是好寶寶')
                 break

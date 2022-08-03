@@ -3,6 +3,7 @@ let Constants = {
   sheetID: "0",
   credentialsPath: "./caramel-compass-358105-e571bd38923b.json",
   numberOfPeople: 2,
+  blackListPath: "./src/black_list_tmp.json",
   studentURLs: [
     {
       // id: "1",

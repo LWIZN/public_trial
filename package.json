@@ -2,6 +2,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "childprocess": "^2.0.2",
+    "fs": "^0.0.1-security",
     "google-spreadsheet": "^3.3.0",
     "line-notify-nodejs": "^1.0.1",
     "shelljs": "^0.8.5"
