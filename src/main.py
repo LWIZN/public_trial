@@ -1,15 +1,12 @@
 from sndhdr import whathdr
 import os
-from flask import Flask, request, request_tearing_down
+from flask import Flask, request
 from mainProgram.identify import Manager
-import json
 
 app = Flask(__name__)
 
-Manager.default_black_list_path = "./src/black_list_tmp.json"
 
-
-@app.route('/home')
+@app.route('/')
 def get_index():
     html = ''
     with open(f'./public/index.html', 'r', encoding='utf-8') as fin:
@@ -25,18 +22,21 @@ def get_js(js_name):
     return js_content
 
 
-@app.route('/home/start')
+@app.route('/start')
 def start_pacakge():
     global wash_Machine
     print(f'was be trigged')
+    os.system("node ./src/mainProgram/overMistake.js")
     try:
         message = Manager.get_user_voice_message()
-        if not Manager.in_black_list(message):
+        if Manager.in_black_list(message):
             return 'You was blocking'
-            os.system("node ./src/mainProgram/overMistake.js")
-        account = ''
-        import re
-        account = '1號' if re.search('1號\s*') else '2號'
+
+        if (message == "一號"):
+            account = '1號'
+        else:
+            account = '2號'
+
         Manager.start(account)
 
         return 'OK?'

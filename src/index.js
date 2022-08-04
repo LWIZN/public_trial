@@ -6,6 +6,8 @@ var resetButton = document.querySelector("#reset");
 
 var startButton = document.querySelector("#start");
 
+var takeButton = document.querySelector("#take");
+
 let moneyTMP = 0;
 
 addMoneyButton.onclick = function () {
@@ -19,7 +21,7 @@ resetButton.onclick = function () {
 };
 
 startButton.onclick = function () {
-  $.get("http://localhost:5000/home/start", function (data) {
+  $.get("http://localhost:5000/start", function (data) {
     console.log(data);
   });
 };

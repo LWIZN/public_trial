@@ -35,46 +35,33 @@ async function overMistake() {
       inner_black_array[inner_black_counter] = studentID;
       // LINE notify
       axios.post(studentURLs[studentID - 1].studentURL, {
-        value1: "被公審超過三次還學不乖，那就一個禮拜不要用吧！",
+        value1: `${studentID}號，被公審超過三次還學不乖，那就一個禮拜不要用吧！`,
       });
     }
   }
 
+  // reset
+  fs.writeFile(blackListPath, '[""]', function (err) {
+    if (err) throw err;
+  });
+
   inner_black_array = inner_black_array.filter(function (item) {
     return item !== 0;
   });
+
   if (inner_black_array.length == 2) {
     fs.writeFile(blackListPath, all_black, function (err) {
       if (err) throw err;
       else console.log("black list update complete!!");
     });
-  } else {
-    updateBlackList(inner_black_array[0]);
-  }
-  console.log(inner_black_array);
-}
-
-function updateBlackList(inner_black_ID) {
-  fs.readFile(blackListPath, function (err, data) {
-    if (err) throw err;
-    else if (
-      data.toString() == black_list_data[inner_black_ID - 1] ||
-      data.toString() == ""
-    ) {
-      console.log(data.toString());
-      fs.writeFile(
-        blackListPath,
-        black_list_data[inner_black_ID - 1],
-        function (err) {
-          if (err) throw err;
-          else console.log("black list update complete!");
-        }
-      );
-    } else {
-      fs.writeFile(blackListPath, all_black, function (err) {
+  } else if (inner_black_array.length == 1) {
+    fs.writeFile(
+      blackListPath,
+      black_list_data[inner_black_array[0] - 1],
+      function (err) {
         if (err) throw err;
-        else console.log("black list update complete");
-      });
-    }
-  });
+        else console.log("black list update complete!");
+      }
+    );
+  } else console.log("no one is banned");
 }

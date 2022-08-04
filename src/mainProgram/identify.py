@@ -21,10 +21,7 @@ LINE_GROUP_TOKEN = 'D1FEkBMkPzH6TwzNgp4XDxC9xrDpIcZuCizjUi9T4GG'
 
 
 class WashMacnineManager:
-    def __init__(self, black_list_path):
-        self.student1_mistake_counter = 0
-        self.student2_mistake_counter = 0
-        self.is_taken = False
+    def __init__(self):
         self.recognizer = sr.Recognizer()
         self.microphone = sr.Microphone()
         self.student_map = {
@@ -34,18 +31,19 @@ class WashMacnineManager:
             # URL_line1 = 'https://maker.ifttt.com/trigger/Send_Line/with/key/b48sBWmSpULW-H4pCynRgc'
             # URL_line2 = 'https://maker.ifttt.com/trigger/tina_Line/with/key/ctaeW71uoRjnvtZnNNpd8z'
         }
-        self.default_black_list_path = black_list_path
-        self.black_list = self._load_black_list(black_list_path)
+        self.default_black_list_path = "./src/black_list_tmp.json"
 
     def _load_black_list(self, path) -> dict:
         with open(path, 'r') as fin:
             return json.load(fin)
 
     def in_black_list(self, message: str) -> bool:
-        results = False
-        for black_user in self.black_list:
-            results = results or (black_user in message)
-        return results
+        self.black_list = self._load_black_list("./src/black_list_tmp.json")
+        if (message == "一號"):
+            message = "one"
+        else:
+            message = "two"
+        return (message in self.black_list)
 
     def get_user_voice_message(self):
         self.microphone.RATE = 44100
@@ -67,19 +65,29 @@ class WashMacnineManager:
 
                 if len(speechtext) > 0:
                     speechtext = speechtext['alternative'][0]['transcript']
-                    return speechtext.replace(' ', '')
+                    speechtext = speechtext.replace(' ', '')
+                    print("You said: " + speechtext)
+                    return speechtext
 
     def take_picture(self, video, picture_path, id):
-        cap = cv2.VideoCapture(video)
+        cap = cv2.VideoCapture(video, cv2.CAP_DSHOW)
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, CAMERA_WIDTH)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, CAMERA_HEIGHT)
-
         ret, frame_src = cap.read()
+        print(ret)
+        cv2.imshow('picture', frame_src)
         cv2.imwrite(picture_path + str(id)+'.jpg', frame_src)
         cap.release()
         cv2.destroyAllWindows()
 
     def start(self, account):
+        self.is_taken = False
+        ID = ''
+        if (account == '1號'):
+            ID = '1'
+        else:
+            ID = '2'
+
         def ifttt_post(student_serial, value2, value3):
             tmp = requests.post(self.student_map[student_serial], params={
                 'value1': f'學號: {student_serial}',
@@ -100,11 +108,14 @@ class WashMacnineManager:
             tmp = requests.post(None, headers=headers, params=params)
             tmp.close()
 
-        path = '.'
+        path = './DCIM'
         video = 0
+        self.take_picture(video, path, ID)
+
         first_warning = False
         seconds_warning = False
         last_warning = False
+        first_round = True
 
         folder = os.path.exists(path)
 
@@ -115,34 +126,42 @@ class WashMacnineManager:
         else:
             print('資料夾 ' + path + ' 已存在')
 
-        start_time = dt.datetime.now()
+        start_time = dt.datetime.now().replace(microsecond=0)
         end_time = start_time + dt.timedelta(0, 30)
 
         while True:
             duration = dt.datetime.now() - start_time
-            ifttt_post(
-                account, f'開始時間: {start_time.time()}', f'結束時間: {end_time.time()}')
+            if first_round:
+                ifttt_post(
+                    account, f'開始時間: {start_time.time()}', f'結束時間: {end_time.time()}')
+                first_round = False
+                print('Timing begins')
 
             if self.is_taken:
+                print('is_taken')
                 ifttt_post(account, '你好棒', '你是好寶寶')
                 break
 
             if 9 < duration.seconds < 11 and not first_warning:
+                print(f'a least 20 sec')
                 ifttt_post(account, '注意注意!剩下20秒鐘!', f'結束時間: {end_time.time()}')
                 first_warning = True
-            elif 19 < duration < 21 and not seconds_warning:
+            elif 19 < duration.seconds < 21 and not seconds_warning:
+                print(f'a least 10 sec')
                 ifttt_post(account, '還有10秒,跑起來! 不要遲到了!!!',
                            f'結束時間: {end_time.time()}')
                 seconds_warning = True
 
-            elif 29 < duration < 31 and not last_warning:
-                ifttt_post(account, '時間到!!!!', '')
+            elif 29 < duration.seconds < 31 and not last_warning:
+                last_warning = True
+                print('time out')
+                ifttt_post(account, '時間到!!!!', '不想被公審還有三秒')
                 time.sleep(3)
 
                 if not self.is_taken:
-                    self.student1_mistake_counter += 1
-                    ifttt_post(account, f'學號:{account}<br>時間到!!!!<br>準備被公審吧!')
-                    requests.post(SHEETS_URL, params={"value1": '1'})
+                    ifttt_post(account, value2=f'時間到!!!!', value3='準備被公審吧!')
+                    requests.post(SHEETS_URL, params={
+                        "value1": ID})
                     group_post(message=f'學號: {account}', media_path=None)
                 else:
                     ifttt_post(account, '你好棒', '你是好寶寶')

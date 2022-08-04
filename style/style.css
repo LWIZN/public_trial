@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <!-- <link rel="stylesheet" href="../style/style.css"> -->
-    <title>公審藝術家</title>
-  </head>
-  <style>
-    /* @import url(../style/style.css); */
-    .frame {
+.frame {
     display: grid;
     border-radius: 30px;
     grid-template-columns:10% repeat(1, 1fr) 10%;
@@ -167,25 +155,3 @@
     border-radius: 50%;
     background-color: rgb(190, 190, 190);
 }
-
-  </style>
-  <body>
-    <div class="frame">
-      <div class="controlBar">
-        <h1 class="title">洗衣機</h1>
-        <p class="display">0 元</p>
-        <button id="addMoney" class="addMoneyButton">投錢</button>
-        <button id="reset" class="resetButton">歸零</button>
-        <button id="start" class="startButton">開始</button>
-        <button id="take" class="takeButton">拿衣服</button>
-        <script src="../src/index.js"></script>
-      </div>
-      <div class="circle"></div>
-      <div class="water"></div>
-      <div class="bodyLight"></div>
-      <div class="shadow"></div>
-      <div class="light"></div>
-      <div class="bottomBar"></div>
-    </div>
-  </body>
-</html>
