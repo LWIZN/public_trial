@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <title>公審藝術家</title>
+  </head>
+  <style>
+    .frame {
+    display: grid;
+    border-radius: 30px;
+    grid-template-columns:10% repeat(1, 1fr) 10%;
+    grid-template-rows: 200px repeat(1, 1fr) 100px;
+    width: 1062px;
+    height: 1200px;
+    background-color: rgb(119, 119, 119);
+    position: relative;
+}
+
+.bodyLight {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row: 2;
+    height: 0px;
+    width: 300px;
+    border-bottom: 900px solid rgb(165, 165, 165);
+    border-left: 100px solid transparent;
+}
+
+.shadow {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row: 2;
+    height: 0px;
+    width: 80px;
+    border-bottom: 900px solid rgb(100, 100, 100);
+    border-left: 26px solid transparent;
+}
+
+.circle {
+    grid-column: 2;
+    grid-row: 2;
+    border: 80px solid rgb(54, 54, 54);
+    background-color: rgb(171, 207, 255);
+    border-radius: 100%;
+    height: 650px;
+    width: 650px;
+    line-height: 650px;
+    position: absolute;
+	top: 4%;
+	left: 2%;
+}
+
+.water {
+    grid-column: 2;
+    grid-row: 2;
+    background-color: rgb(0, 162, 255);
+    border-radius: 100%;
+    height: 630px;
+    width: 350px;
+    position: absolute;
+	top: 12%;
+	left: 11%;
+    border-color: rgb(0, 18, 78);
+    border-style: solid;
+    border-width: 10px 300px 10px 1px;
+}
+
+.light {
+    grid-column: 2;
+    grid-row: 2;
+    background-color: rgb(221, 242, 255);
+    border-radius: 100%;
+    height: 200px;
+    width: 150px;
+    position: absolute;
+	top: 18%;
+	left: 18%;
+    border-color: rgb(167, 188, 255);
+    border-style: solid;
+    border-width: 10px 30px 30px 0px;
+}
+
+.bottomBar {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row: 3;
+    border-radius: 0 0 30px 30px;
+    background-color: rgb(54, 54, 54);
+    height: 100px;
+}
+
+.controlBar {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row: 1;
+    display: grid;
+    border-radius: 30px 30px 0 0;
+    grid-template-columns: 50% repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    background-color: rgb(54, 54, 54);
+    height: 200px;
+    position: relative;
+}
+
+.title {
+    grid-column: 1;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    font-size: auto;
+    height: 150px;
+    line-height: 150px;
+    text-align: center;
+    color: white;
+}
+
+.display {
+    grid-column-start: 2;
+    grid-column-end: 6;
+    grid-row: 1;
+    text-align: center;
+    font-size: larger;
+    height: 50px;
+    width: 500px;
+    line-height: 50px;
+    color: green;
+    background-color: black;
+    border-radius: 100px;
+}
+
+.addMoneyButton {
+    grid-column: 2;
+    grid-row: 2;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: rgb(190, 190, 190);
+}
+
+.resetButton {
+    grid-column: 3;
+    grid-row: 2;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: rgb(190, 190, 190);
+}
+
+.startButton {
+    grid-column: 4;
+    grid-row: 2;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: rgb(190, 190, 190);
+}
+
+.takeButton {
+    grid-column: 5;
+    grid-row: 2;   
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: rgb(190, 190, 190);
+}
+
+  </style>
+  <body>
+    <div class="frame">
+      <div class="controlBar">
+        <h1 class="title">洗衣機</h1>
+        <p class="display">0 元</p>
+        <button id="addMoney" class="addMoneyButton">投錢</button>
+        <button id="reset" class="resetButton">歸零</button>
+        <button id="start" class="startButton">開始</button>
+        <button id="take" class="takeButton">拿衣服</button>
+        <script src="../src/index.js"></script>
+      </div>
+      <div class="circle"></div>
+      <div class="water"></div>
+      <div class="bodyLight"></div>
+      <div class="shadow"></div>
+      <div class="light"></div>
+      <div class="bottomBar"></div>
+    </div>
+  </body>
+</html>
