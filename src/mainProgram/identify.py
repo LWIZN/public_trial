@@ -22,11 +22,11 @@ class WashMacnineManager:
         self.microphone = sr.Microphone()
         self.default_black_list_path = "./src/black_list_tmp.json"
         self.student_map = {
-            '1號': 'https://maker.ifttt.com/trigger/send_line/with/key/mSWScH-gX3M1yBnXbcwgSuTQjrmG8vPV1kiwDDrgei7',
-            '2號': 'https://maker.ifttt.com/trigger/send_line/with/key/mSWScH-gX3M1yBnXbcwgSuTQjrmG8vPV1kiwDDrgei7'
+            # '1號': 'https://maker.ifttt.com/trigger/send_line/with/key/mSWScH-gX3M1yBnXbcwgSuTQjrmG8vPV1kiwDDrgei7',
+            # '2號': 'https://maker.ifttt.com/trigger/send_line/with/key/mSWScH-gX3M1yBnXbcwgSuTQjrmG8vPV1kiwDDrgei7'
 
-            # '1號': 'https://maker.ifttt.com/trigger/Send_Line/with/key/b48sBWmSpULW-H4pCynRgc'
-            # '2號': 'https://maker.ifttt.com/trigger/tina_Line/with/key/ctaeW71uoRjnvtZnNNpd8z'
+            '1號': 'https://maker.ifttt.com/trigger/Send_Line/with/key/b48sBWmSpULW-H4pCynRgc',
+            '2號': 'https://maker.ifttt.com/trigger/tina_Line/with/key/ctaeW71uoRjnvtZnNNpd8z'
         }
 
     def _load_black_list(self, path) -> dict:
