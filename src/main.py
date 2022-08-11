@@ -1,7 +1,9 @@
-from sndhdr import whathdr
 import os
 from flask import Flask, request
 from mainProgram.identify import Manager
+from playsound import playsound
+# from pydub import AudioSegment
+# from pydub.playback import play
 
 app = Flask(__name__)
 
@@ -28,6 +30,10 @@ def start_pacakge():
     print(f'was be trigged')
     os.system("node ./src/mainProgram/overMistake.js")
     try:
+        # playsound('./開始錄製.mp3')
+        playsound(
+            'C:/Users/Eric/Desktop/DIGI/Required_courses/public_trial-master/start.mp3')
+
         message = Manager.get_user_voice_message()
         if Manager.in_black_list(message):
             return 'You was blocking'

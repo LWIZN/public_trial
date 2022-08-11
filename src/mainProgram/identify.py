@@ -1,14 +1,11 @@
-from numpy import blackman
 import speech_recognition as sr
 import time
 import datetime as dt
-import threading
-import re
 import requests
 import cv2
-import argparse
 import os
 import json
+from playsound import playsound
 
 __all__ = ['Manager']
 
@@ -24,21 +21,21 @@ class WashMacnineManager:
     def __init__(self):
         self.recognizer = sr.Recognizer()
         self.microphone = sr.Microphone()
-        self.student_map = {
-            '1號': 'https://maker.ifttt.com/trigger/send_line/with/key/mSWScH-gX3M1yBnXbcwgSuTQjrmG8vPV1kiwDDrgei7',
-            '2號': 'https://maker.ifttt.com/trigger/send_line/with/key/mSWScH-gX3M1yBnXbcwgSuTQjrmG8vPV1kiwDDrgei7'
-
-            # URL_line1 = 'https://maker.ifttt.com/trigger/Send_Line/with/key/b48sBWmSpULW-H4pCynRgc'
-            # URL_line2 = 'https://maker.ifttt.com/trigger/tina_Line/with/key/ctaeW71uoRjnvtZnNNpd8z'
-        }
         self.default_black_list_path = "./src/black_list_tmp.json"
+        self.student_map = {
+            # '1號': 'https://maker.ifttt.com/trigger/send_line/with/key/mSWScH-gX3M1yBnXbcwgSuTQjrmG8vPV1kiwDDrgei7',
+            # '2號': 'https://maker.ifttt.com/trigger/send_line/with/key/mSWScH-gX3M1yBnXbcwgSuTQjrmG8vPV1kiwDDrgei7'
+
+            '1號': 'https://maker.ifttt.com/trigger/Send_Line/with/key/b48sBWmSpULW-H4pCynRgc',
+            '2號': 'https://maker.ifttt.com/trigger/tina_Line/with/key/ctaeW71uoRjnvtZnNNpd8z'
+        }
 
     def _load_black_list(self, path) -> dict:
         with open(path, 'r') as fin:
             return json.load(fin)
 
     def in_black_list(self, message: str) -> bool:
-        self.black_list = self._load_black_list("./src/black_list_tmp.json")
+        self.black_list = self._load_black_list(self.default_black_list_path)
         if (message == "一號"):
             message = "one"
         else:
@@ -90,7 +87,7 @@ class WashMacnineManager:
 
         def ifttt_post(student_serial, value2, value3):
             tmp = requests.post(self.student_map[student_serial], params={
-                'value1': f'學號: {student_serial}',
+                'value1': f'[洗衣機] 學號: {student_serial}',
                 'value2': value2,
                 'value3': value3
             })
@@ -102,14 +99,17 @@ class WashMacnineManager:
             }
             params = {
                 'message': message,
-                'imageFile': open(media_path)
+                # 'imageFile': open(media_path)
             }
-            # group_url = LINE_GROUP_TOKEN
-            tmp = requests.post(None, headers=headers, params=params)
+            filepath = './DCIM' + str(ID) + '.jpg'
+            file = {'imageFile': open(filepath, 'rb')}
+            tmp = requests.post(
+                LINE_GROUP_URL, headers=headers, params=params, files=file)
             tmp.close()
 
         path = './DCIM'
         video = 0
+        print('開始拍照!')
         self.take_picture(video, path, ID)
 
         first_warning = False
@@ -144,27 +144,31 @@ class WashMacnineManager:
 
             if 9 < duration.seconds < 11 and not first_warning:
                 print(f'a least 20 sec')
-                ifttt_post(account, '注意注意!剩下20秒鐘!', f'結束時間: {end_time.time()}')
+                ifttt_post(account, '注意注意!剩下20秒鐘就洗好了!',
+                           f'結束時間: {end_time.time()}')
                 first_warning = True
             elif 19 < duration.seconds < 21 and not seconds_warning:
                 print(f'a least 10 sec')
-                ifttt_post(account, '還有10秒,跑起來! 不要遲到了!!!',
+                ifttt_post(account, '還有10秒就結束了,跑起來! 不要遲到了!!!',
                            f'結束時間: {end_time.time()}')
                 seconds_warning = True
 
             elif 29 < duration.seconds < 31 and not last_warning:
                 last_warning = True
                 print('time out')
-                ifttt_post(account, '時間到!!!!', '不想被公審還有三秒')
-                time.sleep(3)
+                ifttt_post(account, '時間到!!!!', '不想被公審的話你還有十秒')
+                time.sleep(10)
 
                 if not self.is_taken:
                     ifttt_post(account, value2=f'時間到!!!!', value3='準備被公審吧!')
                     requests.post(SHEETS_URL, params={
                         "value1": ID})
-                    group_post(message=f'學號: {account}', media_path=None)
+                    group_post(message=f'學號: {account} 使用霸佔洗衣機不拿衣服，罪該萬死!!!',
+                               media_path='./' + str(id)+'.jpg')
                 else:
                     ifttt_post(account, '你好棒', '你是好寶寶')
+                    playsound(
+                        'C:/Users/Eric/Desktop/DIGI/Required_courses/public_trial-master/good.mp3')
                 break
 
     def update_black_list(self, new_black_path=None):
